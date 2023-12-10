@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-import { contractABI, contractAddress } from "../utils/constants";
+import { EthContractABI, EthContractAddress } from "../utils/constants";
 
 export const TransactionContext = React.createContext();
 
@@ -11,8 +11,8 @@ const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionContract = new ethers.Contract(
-    contractAddress,
-    contractABI,
+    EthContractAddress,
+    EthContractABI,
     signer
   );
 
@@ -180,8 +180,8 @@ export const TransactionsProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    checkIfTransactionsExists();
     checkIfWalletIsConnected();
+    checkIfTransactionsExists();
   }, []);
 
   return (

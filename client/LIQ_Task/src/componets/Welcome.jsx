@@ -1,7 +1,7 @@
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { TransactionContext } from "../context/TransactionContext";
 import { shortenAddress } from "../utils/shortenAddress";
@@ -36,7 +36,20 @@ const Welcome = () => {
     isLoading,
   } = useContext(TransactionContext);
 
-  // const liqPrice = useFetch("");
+  const [loading, setLoading] = useState(false);
+  const [showPrice, setShowPrice] = useState(false);
+
+  const handleClick = () => {
+    setLoading(true);
+
+    // Simulate a delay (2 seconds) before showing the price
+    setTimeout(() => {
+      setLoading(false);
+      setShowPrice(true);
+    }, 2000);
+  };
+
+  const liqPrice = useFetch("");
 
   const handleSubmit = e => {
     const { addressTo, amount, keyword, message } = formData;
@@ -55,12 +68,20 @@ const Welcome = () => {
           {/* <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
             Send Crypto <br /> across the world
           </h1> */}
-          <h1 className={animatedHeaderText}>
+          <h1 className="text-3xl sm:text-3xl md:text-3xl font-extrabold bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.green.300),theme(colors.green.100),theme(colors.sky.400),theme(colors.yellow.200),theme(colors.sky.400),theme(colors.green.100),theme(colors.green.300))] bg-[length:200%_auto] animate-gradient">
             Send Crypto <br /> across the world
           </h1>
           <p className="font-semibold text-left mt-5 text-white md:w-9/12 w-11/12 text-base">
-            Explore the world of LIQ. Buy, sell and stake cryptocurrencies
-            easily on LIQUIDUS Finance.
+            Explore the world of LIQ . Buy, sell, and stake cryptocurrencies
+            easily on{" "}
+            <a
+              href="https://liquidus.finance/#farm"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500 underline transition duration-500 ease-in-out hover:text-[#16E7D6] cursor-pointer">
+              LIQUIDUS Finance
+            </a>
+            .
           </p>
           <br />
           <br />
@@ -68,17 +89,24 @@ const Welcome = () => {
             <div className=" w-full flex flex-col justify-start items-center">
               <h2 className={animatedHeaderText}>LIQ Price</h2>
               <div className="items-center text-white font-bold text-1xl">
-                <span>$ 0,002987</span>
-                {/* <span>{liqPrice || url}</span> */}
+                <span>{liqPrice}</span>
               </div>
             </div>
             <br />
             <div className="w-full flex flex-col justify-start items-center">
               <h3 className={animatedHeaderText}>Predicted Price Tomorrow</h3>
-              {false ? (
+              {loading ? (
                 <Loader />
+              ) : showPrice ? (
+                <div
+                  className="items-center text-[#101727] font-bold text-1xl price-card transition duration-500 ease-in-out w-[50%] hover:text-[#101727] transform hover:-translate-y-1 hover:scale-30 ... cursor-pointer"
+                  onClick={handleClick}>
+                  <span>{"$ 0,08039"}</span>
+                </div>
               ) : (
-                <div className="items-center text-[#101727] font-bold text-1xl price-card transition duration-500 ease-in-out w-[50%] hover:text-[#101727] transform hover:-translate-y-1 hover:scale-30 ... cursor-pointer">
+                <div
+                  className="items-center text-[#101727] font-bold text-1xl price-card transition duration-500 ease-in-out w-[50%] hover:text-[#101727] transform hover:-translate-y-1 hover:scale-30 ... cursor-pointer"
+                  onClick={handleClick}>
                   <span>{"AI GO >"}</span>
                 </div>
               )}
