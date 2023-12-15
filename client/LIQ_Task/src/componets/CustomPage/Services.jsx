@@ -31,7 +31,14 @@ const Services = () => (
         </p>
       </div>
 
-      <div className="flex-1 flex flex-col justify-start items-center">
+      <div className=" relative flex-1 flex flex-col justify-start items-center ">
+        <div className="  justify-center items-center">
+          <div className="absolute top-0 -left-[4%] w-[40%] h-[80%] bg-purple-300 opacity-40 rounded-full filter blur-2xl animate-blob"></div>
+          <div className="  absolute top-0 -right-[4%] w-[40%] h-[80%] bg-yellow-300 opacity-40 rounded-full filter blur-2xl animate-blob animation-delay-2000"></div>
+          <div className=" absolute -bottom-[4%] left-[25%] w-[40%] h-[80%] bg-pink-300 opacity-40  rounded-full filter blur-2xl animate-blob animation-delay-4000"></div>
+          <div className="  absolute -top-[4%] right-[25%] w-[40%] h-[80%] bg-green-300 opacity-40  rounded-full filter blur-2xl animate-blob animation-delay-6000"></div>
+        </div>
+
         <ServiceCard
           color="bg-[#2952E3]"
           title="Security gurantee"

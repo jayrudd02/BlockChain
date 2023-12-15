@@ -131,12 +131,12 @@ body {
 .eth-card {
   background-color: #a099ff;
   background-image: radial-gradient(at 83% 67%, #98e79c 0, transparent 58%),
-    radial-gradient(at 67% 20%, #fb7076 0, transparent 59%),
+    radial-gradient(at 67% 20%, #61faeb 0, transparent 45%),
     radial-gradient(at 88% 35%, hsla(222, 81%, 65%, 1) 0, transparent 50%),
-    radial-gradient(at 31% 91%, #d8715f 0, transparent 52%),
-    radial-gradient(at 27% 71%, #f75596 0, transparent 49%),
-    radial-gradient(at 74% 89%, #fda64e 0, transparent 51%),
-    radial-gradient(at 53% 75%, #61faeb 0, transparent 45%);
+    radial-gradient(at 31% 91%, #f75596 0, transparent 52%),
+    radial-gradient(at 27% 71%, #ffe700 0, transparent 49%),
+    radial-gradient(at 74% 89%, #f75596 0, transparent 51%),
+    radial-gradient(at 53% 75%, #ffe700 0, transparent 59%);
 }
 
 .text-gradient {
@@ -155,3 +155,15 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  .animation-delay-000 {
+    animation-delay: 4s;
+  }
+  .animation-delay-6000 {
+    animation-delay: 6s;
+  }
+}

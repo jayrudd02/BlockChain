@@ -3,11 +3,11 @@ import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import React, { useContext, useState } from "react";
 
-import { TransactionContext } from "../context/TransactionContext";
-import { shortenAddress } from "../utils/shortenAddress";
-import useFetch from "../hooks/useFetch";
+import { TransactionContext } from "../../context/TransactionContext";
+import { shortenAddress } from "../../utils/shortenAddress";
+import useFetch from "../../hooks/useFetch";
 
-import { Loader } from "./";
+import Loader from "../Loader";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -41,8 +41,6 @@ const Welcome = () => {
 
   const handleClick = () => {
     setLoading(true);
-
-    // Simulate a delay (2 seconds) before showing the price
     setTimeout(() => {
       setLoading(false);
       setShowPrice(true);

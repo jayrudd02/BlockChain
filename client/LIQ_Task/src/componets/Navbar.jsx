@@ -1,7 +1,11 @@
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import liq_logo from "../assets/liq_logo.png";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import { LiqTaskPage } from "../pages/LIQ_Task_Page";
+
 import React from "react";
+import { Link } from "react-router-dom";
 // Users/jakes/Documents/Jay's Stuff/Projects/Blockchain_Projects/web3.0/client/LIQ_Task/src/assets/liq_logo.png
 
 const NavItems = ({ title, classProps }) => {
@@ -10,6 +14,7 @@ const NavItems = ({ title, classProps }) => {
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
+  const navList = ["Exchange", "Wallets"];
 
   return (
     <nav className="w-full flex md:justify-center justify-between items-center p-4">
@@ -17,7 +22,18 @@ const Navbar = () => {
         <img src={liq_logo} alt="liq logo" className="w-32 cursor-pointer" />
       </div>
       <ul className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial">
-        {["Market", "Exchange", "Tutorials", "Wallets"].map((item, index) => (
+        <li
+          className="font-semibold transition duration-500 ease-in-out bg-[#101727] py-2 px-7 mx-4 rounded-full
+         cursor-pointer hover:bg-[#16E7D6] hover:text-[#101727] transform hover:-translate-y-1 hover:scale-110 ...">
+          <Link to="/CustomPage">Home</Link>
+        </li>
+        <li
+          className="font-semibold transition duration-500 ease-in-out bg-[#101727] py-2 px-7 mx-4 rounded-full
+         cursor-pointer hover:bg-[#16E7D6] hover:text-[#101727] transform hover:-translate-y-1 hover:scale-110 ...">
+          <Link to="/LiqtaskPage">Stake LIQ</Link>
+        </li>
+
+        {navList.map((item, index) => (
           <NavItems key={item + index} title={item} />
         ))}
         <li
@@ -49,15 +65,13 @@ const Navbar = () => {
             <li className="text-xl w-full my-2">
               <AiOutlineClose onClick={() => setToggleMenu(false)} />
             </li>
-            {["Market", "Exchange", "Tutorials", "Wallets"].map(
-              (item, index) => (
-                <NavItems
-                  key={item + index}
-                  title={item}
-                  classProps="my-2 text-lg"
-                />
-              )
-            )}
+            {navList.map((item, index) => (
+              <NavItems
+                key={item + index}
+                title={item}
+                classProps="my-2 text-lg"
+              />
+            ))}
           </ul>
         )}
       </div>
