@@ -2,9 +2,49 @@ import React, { useContext, useState } from "react";
 // import { AiFillPlayCircle } from "react-icons/ai";
 import { SiMetabase } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { shortenAddress } from "../../utils/shortenAddress";
 
 import { BSCTransactionContext } from "../../context/LIQ_Contract_Context";
 // import { TransactionContext } from "../../context/TransactionContext";
+
+const TransactionsCard = ({ addressTo, addressFrom, amount }) => {
+  // const gifUrl = useFetch({ keyword });
+
+  return (
+    <div
+      className=" transition duration-500 ease-in-out white-glassmorphism m-4 flex flex-1
+      2xl:min-w-[450px]
+      2xl:max-w-[500px]
+      sm:min-w-[270px]
+      sm:max-w-[300px]
+      min-w-full
+      flex-col p-3 rounded-md transform hover:-translate-y-1 hover:scale-30">
+      <div className="flex flex-col items-center w-full mt-3">
+        <div className="display-flex justify-start w-full mb-6 p-2">
+          <a
+            href={`https://testnet.bscscan.com/address/${addressFrom}`}
+            target="_blank"
+            rel="noreferrer">
+            <p className="text-white text-base">
+              {/* From: {shortenAddress(addressFrom)} */}
+              From: {addressFrom}
+            </p>
+          </a>
+          <a
+            href={`https://goerli.etherscan.io/address/${addressTo}`}
+            target="_blank"
+            rel="noreferrer">
+            <p className="text-white text-base">
+              {/* To: {shortenAddress(addressTo)} */}
+              To: {addressTo}
+            </p>
+          </a>
+          <p className="text-white text-base">Amount: {amount} LIQ</p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
   <input
@@ -24,6 +64,7 @@ const Deposit = () => {
     handleChange,
     depositReceipts,
     tokenBalance,
+    userInfo,
   } = useContext(BSCTransactionContext);
 
   const handleSubmit = e => {
@@ -70,19 +111,19 @@ const Deposit = () => {
           <div className="sm:w-[65%] w-full p-5 flex-1">
             <div className="h-full  flex flex-col justify-center items-center">
               <div
-                className="text-white border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md  mb-2 w-[80%]"
+                className="text-white font-semibold border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md  mb-2 w-[80%]"
                 style={{ height: "100px" }}>
-                Total Supply:
+                Balance: {`\n ${tokenBalance}`}
               </div>
               <div
-                className="text-white border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md  mb-2 w-[80%]"
+                className="text-white font-semibold border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md  mb-2 w-[80%]"
                 style={{ height: "100px" }}>
-                Circulating Supply
+                Total Staked:{`\n ${userInfo["amount"]}`}
               </div>
               <div
-                className="text-white border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md  mb-2 w-[80%]"
+                className="text-white font-semibold border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md  mb-2 w-[80%]"
                 style={{ height: "100px" }}>
-                Balance: {tokenBalance}
+                Last Deposit: {`\n ${userInfo["lastDepositedAt"]}`}
               </div>
             </div>
           </div>
@@ -92,12 +133,34 @@ const Deposit = () => {
         </h1>
         <div className="mb-6">
           <ul className="flex flex-wrap justify-center items-center">
-            <li
-              //   key={index}
-              className="text-white border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-md cursor-pointer m-2">
-              <div className="text-white">To: {depositReceipts.to}</div>
-              <div className="text-white">From: {depositReceipts.from}</div>
-            </li>
+            {depositReceipts ? (
+              depositReceipts.map((receipt, index) => (
+                <li
+                  key={index}
+                  className="transition duration-500 ease-in-out white-glassmorphism m-4 flex flex-1 w-[80%] flex-col p-3 rounded-md transform hover:-translate-y-1 hover:scale-30">
+                  <div className="text-xl sm:text-xl md:text-xl font-semibold text-white">
+                    LIQ Deposit
+                  </div>
+                  <div className="h-[1px] w-full bg-gray-400 my-2" />
+                  <div className="flex justify-between">
+                    <div className="flex flex-col">
+                      <div className="text-white">
+                        From: {shortenAddress(receipt.from)}
+                      </div>
+                      <div className="text-white">
+                        To: {shortenAddress(receipt.to)}
+                      </div>
+                    </div>
+                    <div className="text-white flex flex-col">
+                      Amount:
+                      <span>{`${receipt.amount} LIQ`}</span>
+                    </div>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <div className="text-white">No deposits to show</div>
+            )}
           </ul>
         </div>
       </div>
